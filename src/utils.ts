@@ -106,7 +106,7 @@ export function chooseUsersFromGroups(
 
 export async function fetchConfigurationFile(client: Client, options) {
   const { owner, repo, path, ref } = options
-  const result = await client.rest.repos.getContent({
+  const result = await client.repos.getContents({
     owner,
     repo,
     path,
@@ -123,4 +123,28 @@ export async function fetchConfigurationFile(client: Client, options) {
   const config = yaml.safeLoad(configString)
 
   return config
+}
+
+export function chooseLabelForReviewer(
+  reviewer: string,
+  config: Config
+): string | undefined {
+  const { reviewerToLabelMap } = config
+  return reviewerToLabelMap && reviewerToLabelMap[reviewer]
+}
+
+export function chooseLabelForTargetBranch(
+  targetBranch: string,
+  config: Config
+): string | undefined {
+  const { branchesToLabelMap } = config
+  if (!branchesToLabelMap) return undefined
+  
+  const key = Object.keys(branchesToLabelMap).find(e =>
+    targetBranch.startsWith(e)
+  )
+  if (key) {
+    return branchesToLabelMap[key]
+  }
+  return undefined
 }

@@ -1,0 +1,39 @@
+# Example configuration for auto-assign-action with labeling features
+# Place this file at .github/auto_assign.yml in your repository
+
+# Original auto-assign functionality
+addReviewers: true
+addAssignees: true
+reviewers:
+  - reviewer1
+  - reviewer2
+assignees:
+  - assignee1
+numberOfReviewers: 1
+numberOfAssignees: 1
+skipKeywords:
+  - wip
+  - draft
+
+# NEW: Reviewer to label mapping
+# Maps team/user names to labels that should be applied to PRs
+reviewerToLabelMap:
+  'Flutter Support Squad': 'Team: Black'
+  'Social Squad': 'Team: Green'
+  'Marketplace Squad': 'Team: Yellow'
+  'Personalization Squad': 'Team: Blue'
+  'Enterprise Squad': 'Team: Red'
+
+# NEW: Branch to label mapping
+# Maps target branch patterns to labels that should be applied to PRs
+branchesToLabelMap:
+  master: 'Team: Black'
+  release: 'Team: Black'
+  hotfix: 'Team: Black'
+
+# NEW: Optional labels for specific scenarios
+# Label to add to PRs targeting release/* or hotfix/* branches
+releaseLabel: 'Planned for next release'
+
+# Label to add to all non-draft PRs when opened
+waitingForReviewLabel: 'Waiting for Review'

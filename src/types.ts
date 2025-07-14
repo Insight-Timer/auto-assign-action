@@ -1,3 +1,3 @@
-import * as github from '@actions/github'
+import { GitHub } from '@actions/github'
 
-export type Client = ReturnType<typeof github.getOctokit>
+export type Client = GitHub
