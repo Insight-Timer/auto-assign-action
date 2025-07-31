@@ -137,8 +137,8 @@ export async function handlePullRequest(
     }
   }
 
-  // Add waiting for review label for non-draft PRs if configured
-  if (config.waitingForReviewLabel && !draft) {
+  // Add waiting for review label for non-draft PRs if configured (only on PR opened or ready_for_review)
+  if (config.waitingForReviewLabel && !draft && (context.payload.action === 'opened' || context.payload.action === 'ready_for_review')) {
     labels.add(config.waitingForReviewLabel)
     core.info(`Added "${config.waitingForReviewLabel}" label to PR #${number}`)
   }
